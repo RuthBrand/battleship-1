@@ -10,6 +10,13 @@ class ShipTest < Minitest::Test
     assert_instance_of Ship, ship
   end
 
+  def test_it_has_a_name
+    ship = Ship.new("Cruiser")
+    assert_equal "Cruiser", ship.name
+  end
+
+
+
 
 
 
