@@ -10,4 +10,10 @@ class CellTest < Minitest::Test
 
     assert_instance_of Cell, cell
   end
+
+  def test_if_have_ship
+    cell = Cell.new("B4")
+
+    assert_equal false, cell.ship
+  end
 end
