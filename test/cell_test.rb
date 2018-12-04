@@ -26,8 +26,7 @@ class CellTest < Minitest::Test
   def test_if_have_ship
     cell = Cell.new("B4")
 
-    # ruby is recommending assert_nil
-    assert_equal nil, cell.ship
+    assert_nil cell.ship
   end
 
   def test_if_empty?
