@@ -53,4 +53,10 @@ class CellTest < Minitest::Test
 
     assert_equal submarine, cell.ship
   end
+
+  def test_if_cell_has_been_fired_upon
+    cell = Cell.new("D1")
+
+    assert_equal false, cell.fired_upon?
+  end
 end
