@@ -26,6 +26,7 @@ class Cell
   def fire_upon
     @fired_upon = true
     @ship.hit if @ship
+    @status = "M" unless @ship
   end
 
   def render
