@@ -80,4 +80,11 @@ class CellTest < Minitest::Test
 
     assert_equal ".", cell_1.render
   end
+
+  def test_that_status_defaults_to_miss_when_fired_upon
+    cell_1 = Cell.new("A2")
+    cell_1.fire_upon
+
+    assert_equal "M", cell_1.render
+  end
 end
