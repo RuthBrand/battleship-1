@@ -96,4 +96,15 @@ class CellTest < Minitest::Test
 
     assert_equal "H", cell_1.render
   end
+
+  def test_that_status_changes_to_X_when_ship_health_is_zero
+    cell_1 = Cell.new("A1")
+    cruiser = Ship.new("Cruiser", 3)
+    cell_1.place_ship(cruiser)
+    3.times do
+      cell_1.fire_upon
+    end
+
+    assert_equal "X", cell_1.render
+  end
 end
