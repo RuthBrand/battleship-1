@@ -107,4 +107,12 @@ class CellTest < Minitest::Test
 
     assert_equal "X", cell_1.render
   end
+
+  def test_it_shows_user_ship_that_is_not_fired_upon
+    cell_1 = Cell.new("A1")
+    cruiser = Ship.new("Cruiser", 3)
+    cell_1.place_ship(cruiser)
+
+    assert_equal "S", cell_1.render
+  end
 end
