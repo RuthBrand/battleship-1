@@ -14,6 +14,6 @@ class CellTest < Minitest::Test
   def test_if_have_ship
     cell = Cell.new("B4")
 
-    assert_equal false, cell.ship
+    assert_equal nil, cell.ship
   end
 end
