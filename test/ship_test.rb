@@ -6,7 +6,7 @@ require './lib/ship'
 class ShipTest < Minitest::Test
 
   def test_it_exists
-    ship = Ship.new
+    ship = Ship.new("Cruiser")
     assert_instance_of Ship, ship
   end
 
