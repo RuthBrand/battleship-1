@@ -25,6 +25,14 @@ class ShipTest < Minitest::Test
     assert_equal 3, ship.health
   end
 
+  def test_it_can_take_hits
+    ship = Ship.new("Cruiser", 3)
+    ship.hit
+    assert_equal 2, ship.health
+    ship.hit
+    assert_equal 1, ship.health
+  end
+
 
 
 
