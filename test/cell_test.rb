@@ -59,4 +59,11 @@ class CellTest < Minitest::Test
 
     assert_equal false, cell.fired_upon?
   end
+
+  def test_cell_can_be_fired_upon
+    cell = Cell.new("A1")
+    cell.fire_upon
+
+    assert_equal true, cell.fired_upon?
+  end
 end
