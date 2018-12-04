@@ -17,6 +17,12 @@ class CellTest < Minitest::Test
     assert_equal "B4", cell.coordinate
   end
 
+  def test_it_can_have_a_different_coordinate
+    cell = Cell.new("A2")
+
+    assert_equal "A2", cell.coordinate
+  end
+
   def test_if_have_ship
     cell = Cell.new("B4")
 
@@ -41,5 +47,10 @@ class CellTest < Minitest::Test
     cell.place_ship(cruiser)
 
     assert_equal cruiser, cell.ship
+
+    submarine = Ship.new("Submarine", 2)
+    cell.place_ship(submarine)
+
+    assert_equal submarine, cell.ship
   end
 end
