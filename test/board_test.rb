@@ -13,6 +13,13 @@ class BoardTest < MiniTest::Test
     assert_instance_of Board, board
   end
 
+  def test_board_is_a_instance_of_the_hash_class
+    board = Board.new
+
+    assert_instance_of Hash, board
+  end
+
+
 
 
 
