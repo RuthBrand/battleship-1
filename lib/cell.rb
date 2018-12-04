@@ -1,9 +1,9 @@
 class Cell
-  attr_reader :location,
+  attr_reader :coordinate,
               :ship
-              
-  def initialize(location, ship = nil)
-    @location = location
+
+  def initialize(coordinate, ship = nil)
+    @coordinate = coordinate
     @ship = ship
   end
 end
