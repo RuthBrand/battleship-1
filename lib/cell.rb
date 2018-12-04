@@ -34,6 +34,10 @@ class Cell
   end
 
   def render
-    @status
+    if @ship != nil && @ship.sunk?
+      @status = "X"
+    else
+      @status
+    end
   end
 end
