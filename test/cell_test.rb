@@ -113,6 +113,6 @@ class CellTest < Minitest::Test
     cruiser = Ship.new("Cruiser", 3)
     cell_1.place_ship(cruiser)
 
-    assert_equal "S", cell_1.render
+    assert_equal "S", cell_1.render(true)
   end
 end

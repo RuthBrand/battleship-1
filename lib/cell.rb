@@ -33,9 +33,11 @@ class Cell
     end
   end
 
-  def render
-    if @ship != nil && @ship.sunk?
+  def render(see_ship = false)
+    if @ship && @ship.sunk?
       @status = "X"
+    elsif see_ship == true && @ship && @fired_upon == false
+      @status = "S"
     else
       @status
     end
