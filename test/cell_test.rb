@@ -74,4 +74,10 @@ class CellTest < Minitest::Test
 
     assert_equal 2, cell.ship.health
   end
+
+  def test_if_render_defaults_to_period
+    cell_1 = Cell.new("D3")
+
+    assert_equal ".", cell_1.render
+  end
 end
