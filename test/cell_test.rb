@@ -23,4 +23,10 @@ class CellTest < Minitest::Test
     # ruby is recommending assert_nil
     assert_equal nil, cell.ship
   end
+
+  def test_if_empty?
+    cell = Cell.new("B4")
+
+    assert_equal true, cell.empty?
+  end
 end
