@@ -3,24 +3,14 @@ class Board
 
   def initialize
     @cells = {}
-    create_board
+    create_board(4, "D")
   end
 
-  def create_board
-    range_numbers = "1".."4"
-    range_letters = "A".."D"
-    number_array = range_numbers.to_a
-    letters_array = range_letters.to_a
-    new_array = []
-
-    letters_array.each do |letter|
-      number_array.each do |number|
-        new_array << letter + number
+  def create_board(last_number, last_letter)
+    ("A"..last_letter).each do |letter|
+      ("1"..last_number.to_s).each do |number|
+        @cells[letter + number] = Cell.new(letter + number)
       end
-    end
-
-    new_array.each do |element|
-      @cells[element] = Cell.new(element)
     end
   end
 
