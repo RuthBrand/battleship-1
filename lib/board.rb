@@ -71,6 +71,19 @@ class Board
     else
       return false
     end
+
+    def place(ship, coordinates)
+    
+
+    end
+
+
+
+
+
+
+
+
   end
 
 

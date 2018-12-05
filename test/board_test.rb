@@ -84,7 +84,20 @@ class BoardTest < MiniTest::Test
     refute board.valid_placement?(submarine, ["C4", "C5"])
   end
 
+  def test_it_can_place_ships_in_cells
+    board = Board.new
+    submarine = Ship.new("Submarine", 2)
+    board.place(submarine, ["B2", "C2"])
+    cell_1 = board.cells["B2"]
+    cell_2 = board.cells["C2"]
 
+    assert_equal submarine, cell_1.ship
+  end
+
+
+
+
+  end
 
 
 
