@@ -25,6 +25,12 @@ class BoardTest < MiniTest::Test
     assert_equal 16, board.cells.size
   end
 
+  def test_cells_hash_keys_point_to_cell_objects
+    board = Board.new
+
+    assert_instance_of Cell, board.cells.values[0]
+  end
+
 
 
 
