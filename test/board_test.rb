@@ -51,7 +51,9 @@ class BoardTest < MiniTest::Test
 
     refute board.valid_placement(cruiser, ["A1", "A2", "A4"])
     assert board.valid_placement(cruiser, ["B1", "B2", "B3"])
+    assert board.valid_placement(cruiser, ["A1", "B1", "C1"])
   end
+
 
 
 

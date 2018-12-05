@@ -29,8 +29,27 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
+    if valid_size?(ship, coordinates) == false
+      return false
+    elsif valid_horizontal_consecutive(ship, coordinates) == true || valid_vertical_consecutive(ship, coordinates) == true
+      return true
+    else
+      return false
+    end
+  end
+
+  def valid_size?(ship, coordinates)
     coordinates.count == ship.length
   end
+
+  def valid_horizontal_consecutive(ship, coordinates)
+
+  end
+
+  def valid_vertical_consecutive(ship, coordinates)
+
+  end
+
 
 
 
