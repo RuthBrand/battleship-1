@@ -31,11 +31,4 @@ class BoardTest < MiniTest::Test
     assert_instance_of Cell, board.cells.values[0]
   end
 
-
-
-
-
-
-
-
 end
