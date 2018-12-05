@@ -45,7 +45,15 @@ class BoardTest < MiniTest::Test
     assert board.valid_placement?(cruiser, ["A1", "A2", "A3"])
   end
 
-  
+  def test_it_can_validate_ship_coordinates_are_consecutive
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+
+    refute board.valid_placement(cruiser, ["A1", "A2", "A4"])
+    assert board.valid_placement(cruiser, ["B1", "B2", "B3"])
+  end
+
+
 
 
 end
