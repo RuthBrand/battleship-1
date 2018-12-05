@@ -19,6 +19,13 @@ class BoardTest < MiniTest::Test
     assert_instance_of Hash, board.cells
   end
 
+  def test_cells_hash_has_16_key_value_pairs
+    board = Board.new
+
+    assert_equal 16, board.cells.size
+  end
+
+
 
 
 
