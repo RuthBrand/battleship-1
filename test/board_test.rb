@@ -63,18 +63,27 @@ class BoardTest < MiniTest::Test
     refute board.valid_vertical_consecutive?(cruiser, ["A1", "B2", "C1"])
   end
 
+  def test_it_can_validate_ship_coordinates_are_consecutive
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
 
+    refute board.valid_placement?(cruiser, ["A1", "A2", "A4"])
+    assert board.valid_placement?(cruiser, ["B1", "B2", "B3"])
+    assert board.valid_placement?(cruiser, ["A1", "B1", "C1"])
+    assert board.valid_placement?(submarine, ["A1", "A2"])
+    assert board.valid_placement?(submarine, ["A1", "B1"])
+    refute board.valid_placement?(submarine, ["C2", "C4"])
+    refute board.valid_placement?(submarine, ["C4", "C5"])
+  end
 
+  def test_it_will_not_validate_coordinate_not_on_board
+    board = Board.new
+    submarine = Ship.new("Submarine", 2)
 
+    refute board.valid_placement?(submarine, ["C4", "C5"])
+  end
 
-  # def test_it_can_validate_ship_coordinates_are_consecutive
-  #   board = Board.new
-  #   cruiser = Ship.new("Cruiser", 3)
-  #
-  #   refute board.valid_placement(cruiser, ["A1", "A2", "A4"])
-  #   assert board.valid_placement(cruiser, ["B1", "B2", "B3"])
-  #   assert board.valid_placement(cruiser, ["A1", "B1", "C1"])
-  # end
 
 
 

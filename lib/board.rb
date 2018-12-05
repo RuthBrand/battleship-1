@@ -14,18 +14,23 @@ class Board
     end
   end
 
-  def valid_coordinate?(coordinate)
-    cells.keys.include?(coordinate)
-  end
-
   def valid_placement?(ship, coordinates)
+    coordinates.each do |coordinate|
+      if valid_coordinate?(coordinate) == false
+        return false
+      end
+    end
     if valid_size?(ship, coordinates) == false
       return false
-    elsif valid_horizontal_consecutive(ship, coordinates) == true || valid_vertical_consecutive(ship, coordinates) == true
+    elsif valid_horizontal_consecutive?(ship, coordinates) == true || valid_vertical_consecutive?(ship, coordinates) == true
       return true
     else
       return false
     end
+  end
+
+  def valid_coordinate?(coordinate)
+    cells.keys.include?(coordinate)
   end
 
   def valid_size?(ship, coordinates)
