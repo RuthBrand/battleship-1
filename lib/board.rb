@@ -23,4 +23,11 @@ class Board
       @cells[element] = Cell.new(element)
     end
   end
+
+  def valid_coordinate?(coordinate)
+    cells.keys.include?(coordinate)
+  end
+
+
+
 end
