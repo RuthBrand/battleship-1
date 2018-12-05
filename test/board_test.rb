@@ -41,18 +41,28 @@ class BoardTest < MiniTest::Test
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
 
-    refute board.valid_placement?(cruiser, ["A1", "A2"])
-    assert board.valid_placement?(cruiser, ["A1", "A2", "A3"])
+    refute board.valid_size?(cruiser, ["A1", "A2"])
+    assert board.valid_size?(cruiser, ["A1", "A2", "A3"])
   end
 
-  def test_it_can_validate_ship_coordinates_are_consecutive
+  def test_it_can_determine_if_horizontal_coordinates_are_consecutive
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
 
-    refute board.valid_placement(cruiser, ["A1", "A2", "A4"])
-    assert board.valid_placement(cruiser, ["B1", "B2", "B3"])
-    assert board.valid_placement(cruiser, ["A1", "B1", "C1"])
+    assert board.valid_horizontal_consecutive?(cruiser, ["A1", "A2", "A3"])
+    refute board.valid_horizontal_consecutive?(cruiser, ["B1", "A2", "A3"])
+    refute board.valid_horizontal_consecutive?(cruiser, ["A1", "A2", "A4"])
   end
+
+
+  # def test_it_can_validate_ship_coordinates_are_consecutive
+  #   board = Board.new
+  #   cruiser = Ship.new("Cruiser", 3)
+  #
+  #   refute board.valid_placement(cruiser, ["A1", "A2", "A4"])
+  #   assert board.valid_placement(cruiser, ["B1", "B2", "B3"])
+  #   assert board.valid_placement(cruiser, ["A1", "B1", "C1"])
+  # end
 
 
 

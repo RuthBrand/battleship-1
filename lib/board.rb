@@ -42,9 +42,27 @@ class Board
     coordinates.count == ship.length
   end
 
-  def valid_horizontal_consecutive(ship, coordinates)
-
+  def valid_horizontal_consecutive?(ship, coordinates)
+    letters = []
+    numbers = []
+    coordinates.each do |coordinate|
+      letters << coordinate[0]
+      numbers << coordinate[1]
+    end
+    if letters.uniq.count != 1
+      return false
+    end
+    range_test = numbers.first..numbers.last
+    if range_test.count == ship.length
+      return true
+    else
+      return false
+    end
   end
+
+
+
+
 
   def valid_vertical_consecutive(ship, coordinates)
 
