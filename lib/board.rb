@@ -60,13 +60,27 @@ class Board
     end
   end
 
-
-
-
-
-  def valid_vertical_consecutive(ship, coordinates)
-
+  def valid_vertical_consecutive?(ship, coordinates)
+    letters = []
+    numbers = []
+    coordinates.each do |coordinate|
+      letters << coordinate[0]
+      numbers << coordinate[1]
+    end
+    if numbers.uniq.count != 1
+      return false
+    end
+    range_test = letters.first..letters.last
+    if range_test.count == ship.length
+      return true
+    else
+      return false
+    end
   end
+
+
+
+
 
 
 

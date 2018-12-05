@@ -54,6 +54,18 @@ class BoardTest < MiniTest::Test
     refute board.valid_horizontal_consecutive?(cruiser, ["A1", "A2", "A4"])
   end
 
+  def test_it_can_determine_if_vertical_coordinates_are_consecutive
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+
+    assert board.valid_vertical_consecutive?(cruiser, ["A1", "B1", "C1"])
+    refute board.valid_vertical_consecutive?(cruiser, ["A1", "B1", "D1"])
+    refute board.valid_vertical_consecutive?(cruiser, ["A1", "B2", "C1"])
+  end
+
+
+
+
 
   # def test_it_can_validate_ship_coordinates_are_consecutive
   #   board = Board.new
