@@ -124,5 +124,6 @@ class BoardTest < MiniTest::Test
     board = Board.new
 
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
+    require 'pry'; binding.pry
   end
 end

@@ -99,7 +99,11 @@ class Board
   end
 
   def render(see_ship = false)
-    render_header + "\n" + render_row
+    render_string = cells.keys.map {|cell| cell[0]}
+    rendered_rows = render_string.uniq.map do |letter|
+      render_row(letter)
+    end
+    render_header + rendered_rows.join
   end
 
   def render_row(row)
