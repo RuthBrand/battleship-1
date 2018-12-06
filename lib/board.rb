@@ -71,24 +71,17 @@ class Board
     else
       return false
     end
-
-    def place(ship, coordinates)
-    
-
-    end
-
-
-
-
-
-
-
-
   end
 
-
-
-
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates) == false
+      return "Invalid Ship Placement"
+    else
+      coordinates.each do |coordinate|
+        @cells[coordinate].place_ship(ship)
+      end
+    end
+  end
 
 
 
