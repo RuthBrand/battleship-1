@@ -20,7 +20,9 @@ class Board
         return false
       end
     end
-    if valid_size?(ship, coordinates) == false
+    if cell_unoccupied?(coordinates) == false
+      return false
+    elsif valid_size?(ship, coordinates) == false
       return false
     elsif valid_horizontal_consecutive?(ship, coordinates) == true || valid_vertical_consecutive?(ship, coordinates) == true
       return true
@@ -73,6 +75,14 @@ class Board
     end
   end
 
+  def cell_unoccupied?(coordinates)
+    coordinates.each do |coordinate|
+      if @cells[coordinate].empty? == false
+        return false
+      end
+    end
+  end
+
   def place(ship, coordinates)
     if valid_placement?(ship, coordinates) == false
       return "Invalid Ship Placement"
@@ -82,9 +92,4 @@ class Board
       end
     end
   end
-
-
-
-
-
 end
