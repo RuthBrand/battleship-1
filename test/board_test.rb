@@ -150,6 +150,8 @@ class BoardTest < MiniTest::Test
     cell_1.fire_upon
 
     assert_equal "  1 2 3 4 \nA . . . . \nB . . H . \nC . . . . \nD . . . . \n", board.render
+
+    assert_equal "  1 2 3 4 \nA . . . . \nB S S H . \nC . . . . \nD . . . . \n", board.render(true)
   end
 
   def test_it_can_show_a_sunken_ship
