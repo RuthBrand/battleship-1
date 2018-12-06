@@ -101,17 +101,17 @@ class Board
   def render(see_ship = false)
     render_string = cells.keys.map {|cell| cell[0]}
     rendered_rows = render_string.uniq.map do |letter|
-      render_row(letter)
+      render_row(letter, see_ship)
     end
     render_header + rendered_rows.join
   end
 
-  def render_row(row)
+  def render_row(row, see_ship = false)
     correct_cells = cells.keys.find_all do |key|
       key[0] == row
     end
     statuses = correct_cells.map do |key|
-      cells[key].render
+      cells[key].render(see_ship)
     end
     row + " " + statuses.join(" ") + (" \n")
   end
