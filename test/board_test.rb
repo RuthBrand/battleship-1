@@ -141,4 +141,14 @@ class BoardTest < MiniTest::Test
 
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . M . \nD . . . . \n", board.render
   end
+
+  def test_it_can_show_a_hit
+    board = Board.new
+    cell_1 = board.cells["B3"]
+    cruiser = Ship.new("Cruiser", 3)
+    board.place(cruiser, ["B1", "B2", "B3"])
+    cell_1.fire_upon
+
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . H . \nC . . . . \nD . . . . \n", board.render
+  end
 end
