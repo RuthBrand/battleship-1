@@ -52,6 +52,7 @@ class BoardTest < MiniTest::Test
     assert board.valid_horizontal_consecutive?(cruiser, ["A1", "A2", "A3"])
     refute board.valid_horizontal_consecutive?(cruiser, ["B1", "A2", "A3"])
     refute board.valid_horizontal_consecutive?(cruiser, ["A1", "A2", "A4"])
+    refute board.valid_horizontal_consecutive?(cruiser, ["A1", "A1", "A3"])
   end
 
   def test_it_can_determine_if_vertical_coordinates_are_consecutive
@@ -61,6 +62,7 @@ class BoardTest < MiniTest::Test
     assert board.valid_vertical_consecutive?(cruiser, ["A1", "B1", "C1"])
     refute board.valid_vertical_consecutive?(cruiser, ["A1", "B1", "D1"])
     refute board.valid_vertical_consecutive?(cruiser, ["A1", "B2", "C1"])
+    refute board.valid_vertical_consecutive?(cruiser, ["A1", "A1", "C1"])
   end
 
   def test_it_can_validate_ship_coordinates_are_consecutive
@@ -103,5 +105,64 @@ class BoardTest < MiniTest::Test
     board.place(submarine, ["B2", "C2"])
 
     refute board.valid_placement?(cruiser, ["B1", "B2", "B3"])
+  end
+
+  def test_it_can_render_a_header
+    board = Board.new
+
+    assert_equal "  1 2 3 4 \n", board.render_header
+  end
+
+  def test_it_can_render_a_single_row
+    board = Board.new
+
+    assert_equal "A . . . . \n", board.render_row("A")
+    assert_equal "B . . . . \n", board.render_row("B")
+  end
+
+  def test_it_can_render_a_board
+    board = Board.new
+
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
+  end
+
+  def test_it_can_show_user_ships
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    board.place(cruiser, ["B1", "B2", "B3"])
+
+    assert_equal "  1 2 3 4 \nA . . . . \nB S S S . \nC . . . . \nD . . . . \n", board.render(true)
+  end
+
+  def test_it_can_show_a_miss
+    board = Board.new
+    cell_1 = board.cells["C3"]
+    cell_1.fire_upon
+
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . M . \nD . . . . \n", board.render
+  end
+
+  def test_it_can_show_a_hit
+    board = Board.new
+    cell_1 = board.cells["B3"]
+    cruiser = Ship.new("Cruiser", 3)
+    board.place(cruiser, ["B1", "B2", "B3"])
+    cell_1.fire_upon
+
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . H . \nC . . . . \nD . . . . \n", board.render
+
+    assert_equal "  1 2 3 4 \nA . . . . \nB S S H . \nC . . . . \nD . . . . \n", board.render(true)
+  end
+
+  def test_it_can_show_a_sunken_ship
+    board = Board.new
+    cell_1 = board.cells["B3"]
+    cell_2 = board.cells["B2"]
+    sub = Ship.new("Submarine", 2)
+    board.place(sub, ["B2", "B3"])
+    cell_1.fire_upon
+    cell_2.fire_upon
+
+    assert_equal "  1 2 3 4 \nA . . . . \nB . X X . \nC . . . . \nD . . . . \n", board.render
   end
 end
