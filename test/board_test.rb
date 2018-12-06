@@ -104,4 +104,10 @@ class BoardTest < MiniTest::Test
 
     refute board.valid_placement?(cruiser, ["B1", "B2", "B3"])
   end
+
+  def test_it_can_render_a_board
+    board = Board.new
+
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
+  end
 end
