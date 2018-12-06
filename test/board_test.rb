@@ -131,6 +131,6 @@ class BoardTest < MiniTest::Test
     cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["B1", "B2", "B3"])
 
-    assert_equal "  1 2 3 4 \nA . . . . \nB S S S . \nC . . . . \nD . . . . \n", board.render
+    assert_equal "  1 2 3 4 \nA . . . . \nB S S S . \nC . . . . \nD . . . . \n", board.render(true)
   end
 end
