@@ -133,4 +133,12 @@ class BoardTest < MiniTest::Test
 
     assert_equal "  1 2 3 4 \nA . . . . \nB S S S . \nC . . . . \nD . . . . \n", board.render(true)
   end
+
+  def test_it_can_show_a_miss
+    board = Board.new
+    cell_1 = board.cells["C3"]
+    cell_1.fire_upon
+
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . M . \nD . . . . \n", board.render
+  end
 end
