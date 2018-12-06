@@ -117,10 +117,10 @@ class BoardTest < MiniTest::Test
     board = Board.new
 
     assert_equal "A . . . . \n", board.render_row("A")
+    assert_equal "B . . . . \n", board.render_row("B")
   end
 
   def test_it_can_render_a_board
-    skip
     board = Board.new
 
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", board.render

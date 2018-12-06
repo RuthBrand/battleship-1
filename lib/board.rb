@@ -99,14 +99,7 @@ class Board
   end
 
   def render(see_ship = false)
-    render_header + "\n" + render_rows
-  end
-
-  def render_rows
-    status_of_cells = cells.values.map do |cell|
-      cell.render
-    end
-    return status_of_cells.join" "
+    render_header + "\n" + render_row
   end
 
   def render_row(row)
