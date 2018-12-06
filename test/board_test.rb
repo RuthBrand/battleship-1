@@ -124,6 +124,13 @@ class BoardTest < MiniTest::Test
     board = Board.new
 
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
-    require 'pry'; binding.pry
+  end
+
+  def test_it_can_show_user_ships
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    board.place(cruiser, ["B1", "B2", "B3"])
+
+    assert_equal "  1 2 3 4 \nA . . . . \nB S S S . \nC . . . . \nD . . . . \n", board.render
   end
 end
