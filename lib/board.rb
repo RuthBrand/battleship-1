@@ -49,8 +49,11 @@ class Board
     if letters.uniq.count != 1
       return false
     end
+
     range_test = numbers.first..numbers.last
-    if range_test.count == ship.length
+    if range_test.to_a != numbers
+      return false
+    elsif range_test.count == ship.length
       return true
     else
       return false
@@ -68,7 +71,9 @@ class Board
       return false
     end
     range_test = letters.first..letters.last
-    if range_test.count == ship.length
+    if range_test.to_a != letters
+      return false
+    elsif range_test.count == ship.length
       return true
     else
       return false
@@ -91,5 +96,32 @@ class Board
         @cells[coordinate].place_ship(ship)
       end
     end
+  end
+
+  def render(see_ship = false)
+    render_header + "\n" + render_rows
+  end
+
+  def render_rows
+    status_of_cells = cells.values.map do |cell|
+      cell.render
+    end
+    return status_of_cells.join" "
+  end
+
+  def render_row(row)
+    correct_cells = cells.keys.find_all do |key|
+      key[0] == row
+    end
+    statuses = correct_cells.map do |key|
+      cells[key].render
+    end
+    row + " " + statuses.join(" ") + (" \n")
+  end
+
+  def render_header
+    number_range = cells.keys.map {|cell| cell[1]}
+    number_header = number_range.uniq.join" "
+    "  " + number_header + " \n"
   end
 end

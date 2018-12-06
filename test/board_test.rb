@@ -52,6 +52,7 @@ class BoardTest < MiniTest::Test
     assert board.valid_horizontal_consecutive?(cruiser, ["A1", "A2", "A3"])
     refute board.valid_horizontal_consecutive?(cruiser, ["B1", "A2", "A3"])
     refute board.valid_horizontal_consecutive?(cruiser, ["A1", "A2", "A4"])
+    refute board.valid_horizontal_consecutive?(cruiser, ["A1", "A1", "A3"])
   end
 
   def test_it_can_determine_if_vertical_coordinates_are_consecutive
@@ -61,6 +62,7 @@ class BoardTest < MiniTest::Test
     assert board.valid_vertical_consecutive?(cruiser, ["A1", "B1", "C1"])
     refute board.valid_vertical_consecutive?(cruiser, ["A1", "B1", "D1"])
     refute board.valid_vertical_consecutive?(cruiser, ["A1", "B2", "C1"])
+    refute board.valid_vertical_consecutive?(cruiser, ["A1", "A1", "C1"])
   end
 
   def test_it_can_validate_ship_coordinates_are_consecutive
@@ -105,7 +107,20 @@ class BoardTest < MiniTest::Test
     refute board.valid_placement?(cruiser, ["B1", "B2", "B3"])
   end
 
+  def test_it_can_render_a_header
+    board = Board.new
+
+    assert_equal "  1 2 3 4 \n", board.render_header
+  end
+
+  def test_it_can_render_a_single_row
+    board = Board.new
+
+    assert_equal "A . . . . \n", board.render_row("A")
+  end
+
   def test_it_can_render_a_board
+    skip
     board = Board.new
 
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
