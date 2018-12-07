@@ -47,7 +47,7 @@ class Battleship
       input_array = input.split
       # require 'pry'; binding.pry
     end
-    board.place(user_ship, input_array)
+    board.place(user_cruiser, input_array)
     puts board.render(true)
 
   end
