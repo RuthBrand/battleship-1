@@ -15,10 +15,5 @@ class BattleshipTest < MiniTest::Test
     assert_instance_of Battleship, battleship
   end
 
-  def test_it_prompts_main_menu
-    battleship = Battleship.new
-
-    assert_equal "Welcome to BATTLESHIP \nEnter p to play. Enter q to quit.", battleship.main_menu
-  end
 
 end
