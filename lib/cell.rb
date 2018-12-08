@@ -25,8 +25,8 @@ class Cell
 
   def fire_upon
     @fired_upon = true
-    @ship.hit if @ship
-    if @ship
+    @ship.hit if @ship != nil
+    if @ship != nil
       @status = "H"
     else
       @status = "M"

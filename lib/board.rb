@@ -1,9 +1,9 @@
 class Board
   attr_reader :cells
 
-  def initialize
+  def initialize(columns = 4, rows = "D")
     @cells = {}
-    create_board(4, "D")
+    create_board(columns, rows)
   end
 
   def create_board(last_number, last_letter)
