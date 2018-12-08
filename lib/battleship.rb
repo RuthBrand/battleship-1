@@ -96,7 +96,7 @@ class Battleship
 
   def turn
     puts "=============COMPUTER BOARD============="
-    puts computer_board.render
+    puts computer_board.render(true)
 
     puts "=============STUDENT BOARD============="
     puts user_board.render(true)
@@ -117,8 +117,9 @@ class Battleship
       computer_shot = user_board.cells.keys.sample
     end
     user_board.cells[computer_shot].fire_upon
-    # puts user_board.render(true)
-    
+    puts "Your shot on #{user_shot} was a #{computer_board.cells[user_shot].status_feedback}"
+    puts "My shot on #{computer_shot} was a #{user_board.cells[computer_shot].status_feedback}"
+
   end
 
 
@@ -136,7 +137,7 @@ class Battleship
 
 
   def end_game
-
+    
 
     main_menu
   end
