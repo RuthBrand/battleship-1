@@ -26,6 +26,7 @@ class Battleship
   end
 
   def setup
+    puts "\n"
     board = Board.new
     computer_cruiser = Ship.new("Cruiser", 3)
     computer_sub = Ship.new("Submarine", 2)
@@ -37,19 +38,22 @@ class Battleship
     puts "I have laid out my ships on the grid.\nYou now need to lay out your ships.\nThe Cruiser is three units long and the Submarine is two units long."
     puts board.render
     puts "Enter the squares for the Cruiser (3 spaces):"
-    # print = ">"
+    print ">"
     input = gets.chomp
     input_array = input.split
     while board.valid_placement?(user_cruiser, input_array) == false
 
-      puts "Please enter a valid placement."
+      puts "Those are invalid coordinates. Please try again:"
+      print ">"
       input = gets.chomp
       input_array = input.split
       # require 'pry'; binding.pry
     end
     board.place(user_cruiser, input_array)
+    puts "\n"
     puts board.render(true)
-
+    puts "Enter the squares for the Submarine (2 spaces):"
+    print ">"
   end
 
 
