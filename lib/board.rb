@@ -40,16 +40,19 @@ class Board
   end
 
   def valid_horizontal_consecutive?(ship, coordinates)
-    letters = []
-    numbers = []
+    letters = [] # P, Q, R
+    numbers = [] # 11, 13, 18
     coordinates.each do |coordinate|
       letters << coordinate[0]
-      numbers << coordinate[1]
+      if coordinate.length == 2
+        numbers << coordinate[1]
+      else
+        numbers << (coordinate[1] + coordinate[2])
+      end
     end
     if letters.uniq.count != 1
       return false
     end
-
     range_test = numbers.first..numbers.last
     if range_test.to_a != numbers
       return false
@@ -65,7 +68,11 @@ class Board
     numbers = []
     coordinates.each do |coordinate|
       letters << coordinate[0]
-      numbers << coordinate[1]
+      if coordinate.length == 2
+        numbers << coordinate[1]
+      else
+        numbers << (coordinate[1] + coordinate[2])
+      end
     end
     if numbers.uniq.count != 1
       return false
@@ -113,12 +120,21 @@ class Board
     statuses = correct_cells.map do |key|
       cells[key].render(see_ship)
     end
-    row + " " + statuses.join(" ") + (" \n")
+    row + " " + statuses.join("  ") + (" \n")
   end
 
   def render_header
-    number_range = cells.keys.map {|cell| cell[1]}
-    number_header = number_range.uniq.join" "
-    "  " + number_header + " \n"
+    single_digit_number_range = []
+    double_digit_number_range = []
+    cells.keys.each do |cell|
+      if cell.length == 2
+        single_digit_number_range << cell[1]
+      else
+        double_digit_number_range << (cell[1] + cell[2])
+      end
+    end
+    number_header_single_digits = single_digit_number_range.uniq.join"  "
+    number_header_double_digits = double_digit_number_range.uniq.join" "
+    "  " + number_header_single_digits + " " + number_header_double_digits + " \n"
   end
 end
