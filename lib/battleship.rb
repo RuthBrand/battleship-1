@@ -91,7 +91,7 @@ class Battleship
 
     puts "\n"
     puts user_board.render(true)
-    turn
+    game
   end
 
   def turn
@@ -118,6 +118,14 @@ class Battleship
     end
     user_board.cells[computer_shot].fire_upon
     # puts user_board.render(true)
+    
+  end
+
+
+  def game
+    until (computer_cruiser.sunk? == true && computer_sub.sunk? == true) || (user_cruiser.sunk? == true && user_sub.sunk? == true)
+      turn
+    end
     end_game
   end
 
@@ -126,10 +134,6 @@ class Battleship
 
 
 
-  def game
-
-
-  end
 
   def end_game
 
