@@ -29,7 +29,7 @@ class Battleship
   end
 
   def setup
-    computer_board = Board.new(26, "Z")
+    computer_board = Board.new
     computer_cruiser = Ship.new("Cruiser", 3)
     computer_sub = Ship.new("Submarine", 2)
 
@@ -45,7 +45,6 @@ class Battleship
     end
     computer_board.place(computer_sub, random_array)
     #here goes the code for random but valid computer ship placement
-    puts computer_board.render(true)
     #I'm thinking we could make a method called something like random_computer_ship_placement, and then just call that method in this setup method. In the random_computer_ship_placement, we could split it up even more with a def random_vertical_placement method as well as a random_horizontal_placement method.
 
     #battleship.random_computer_ship_placement

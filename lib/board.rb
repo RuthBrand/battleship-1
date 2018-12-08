@@ -40,16 +40,19 @@ class Board
   end
 
   def valid_horizontal_consecutive?(ship, coordinates)
-    letters = [] # I, J, H
-    numbers = [] #
+    letters = [] # P, Q, R
+    numbers = [] # 11, 13, 18
     coordinates.each do |coordinate|
       letters << coordinate[0]
-      numbers << coordinate[1]
+      if coordinate.length == 2
+        numbers << coordinate[1]
+      else
+        numbers << (coordinate[1] + coordinate[2])
+      end
     end
     if letters.uniq.count != 1
       return false
     end
-
     range_test = numbers.first..numbers.last
     if range_test.to_a != numbers
       return false
@@ -65,7 +68,11 @@ class Board
     numbers = []
     coordinates.each do |coordinate|
       letters << coordinate[0]
-      numbers << coordinate[1]
+      if coordinate.length == 2
+        numbers << coordinate[1]
+      else
+        numbers << (coordinate[1] + coordinate[2])
+      end
     end
     if numbers.uniq.count != 1
       return false
