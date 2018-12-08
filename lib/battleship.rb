@@ -1,5 +1,3 @@
-# require './lib/board'
-
 class Battleship
   attr_reader :computer_board,
               :computer_cruiser,
@@ -8,8 +6,6 @@ class Battleship
               :user_cruiser,
               :user_sub
 
-
-
   def initialize
     @computer_board = Board.new
     @computer_cruiser = Ship.new("Cruiser", 3)
@@ -17,12 +13,7 @@ class Battleship
     @user_board = Board.new
     @user_cruiser = Ship.new("Cruiser", 3)
     @user_sub = Ship.new("Submarine", 2)
-    start
-  end
-
-  def start
     main_menu
-
   end
 
   def main_menu
@@ -70,25 +61,22 @@ class Battleship
       input = gets.chomp
       input = input.upcase
       input_array = input.split
-      # require 'pry'; binding.pry
     end
+
     user_board.place(user_cruiser, input_array)
     puts user_board.render(true)
-
     puts "Enter the squares for the Submarine (2 spaces):"
     print ">"
     input = gets.upcase.chomp
     input_array = input.split
-    while user_board.valid_placement?(user_sub, input_array) == false
 
+    while user_board.valid_placement?(user_sub, input_array) == false
       puts "Those are invalid coordinates. Please try again:"
       input = gets.upcase.chomp
-
       input_array = input.split
-
     end
-    user_board.place(user_sub, input_array)
 
+    user_board.place(user_sub, input_array)
     puts "\n"
     puts user_board.render(true)
     game
@@ -96,7 +84,7 @@ class Battleship
 
   def turn
     puts "=============COMPUTER BOARD============="
-    puts computer_board.render(true)
+    puts computer_board.render
 
     puts "=============STUDENT BOARD============="
     puts user_board.render(true)
@@ -110,18 +98,18 @@ class Battleship
       puts ">"
       user_shot = gets.upcase.chomp
     end
+
     computer_board.cells[user_shot].fire_upon
     computer_shot = user_board.cells.keys.sample
-    while user_board.valid_coordinate?(computer_shot) == false || user_board.cells[computer_shot].fired_upon? == true
 
+    while user_board.valid_coordinate?(computer_shot) == false || user_board.cells[computer_shot].fired_upon? == true
       computer_shot = user_board.cells.keys.sample
     end
+
     user_board.cells[computer_shot].fire_upon
     puts "Your shot on #{user_shot} was a #{computer_board.cells[user_shot].status_feedback}"
     puts "My shot on #{computer_shot} was a #{user_board.cells[computer_shot].status_feedback}"
-
   end
-
 
   def game
     until (computer_cruiser.sunk? == true && computer_sub.sunk? == true) || (user_cruiser.sunk? == true && user_sub.sunk? == true)
@@ -130,38 +118,12 @@ class Battleship
     end_game
   end
 
-
-
-
-
-
-
   def end_game
-    
-
-    main_menu
+    if computer_cruiser.sunk? == true && computer_sub.sunk? == true
+      puts "You Won!!!"
+    else
+      puts "I Won... You'll never beat me..."
+    end
+    puts "Would you like to play again?"
   end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 end
