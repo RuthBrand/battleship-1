@@ -16,8 +16,9 @@ class Battleship
     input = nil
     while input != "q"
       puts "Welcome to BATTLESHIP \nEnter p to play. Enter q to quit."
+      print ">"
       input = gets.chomp
-      #input = input.upcase
+      input = input.downcase
       if input == "p"
         setup
       elsif input == "q"
@@ -44,10 +45,6 @@ class Battleship
       random_array = computer_board.cells.keys.sample(2)
     end
     computer_board.place(computer_sub, random_array)
-    #here goes the code for random but valid computer ship placement
-    #I'm thinking we could make a method called something like random_computer_ship_placement, and then just call that method in this setup method. In the random_computer_ship_placement, we could split it up even more with a def random_vertical_placement method as well as a random_horizontal_placement method.
-
-    #battleship.random_computer_ship_placement
 
     user_board = Board.new
     user_cruiser = Ship.new("Cruiser", 3)
@@ -57,11 +54,9 @@ class Battleship
     puts "I have laid out my ships on the grid.\nYou now need to lay out your ships.\nThe Cruiser is three units long and the Submarine is two units long."
     puts user_board.render
     puts "Enter the squares for the Cruiser (3 spaces):"
-    # print = ">"
+    print ">"
     input = gets.chomp
     input = input.upcase
-
-
 
     input_array = input.split
     while user_board.valid_placement?(user_cruiser, input_array) == false
@@ -75,14 +70,29 @@ class Battleship
     user_board.place(user_cruiser, input_array)
     puts user_board.render(true)
 
-    # This code should run after the user places the first ship.
-
     puts "Enter the squares for the Submarine (2 spaces):"
+    print ">"
     input = gets.chomp
     input = input.upcase
     input_array = input.split
     user_board.place(user_sub, input_array)
+
+    puts "\n"
     puts user_board.render(true)
+    turns
+  end
+
+  def turns
+
+
+
+    end_game
+  end
+
+  def end_game
+
+    
+    main_menu
   end
 
   #def random_computer_ship_placement
