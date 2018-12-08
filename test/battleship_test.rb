@@ -15,20 +15,6 @@ class BattleshipTest < MiniTest::Test
     assert_instance_of Battleship, battleship
   end
 
-  # def test_random_horizontal_placement
-  #   battleship = Battleship.new
-  #
-  #
-  # end
-  #
-  # def test_random_vertical_placement
-  #
-  # end
-
-
-
-
-
 
 
 end
