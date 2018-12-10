@@ -32,6 +32,13 @@ class Battleship
   end
 
   def setup
+    create_custom_board
+    place_computer_ships
+    place_user_ships
+    game
+  end
+
+  def create_custom_board
     puts "Please choose the size of your board (Minimum 4, Maximum 26):"
     print ">"
     user_board_size = gets.chomp.to_i
@@ -42,6 +49,9 @@ class Battleship
     row_letter = (user_board_size + 64).chr
     @user_board = Board.new(user_board_size, row_letter)
     @computer_board = Board.new(user_board_size, row_letter)
+  end
+
+  def place_computer_ships
     random_array = computer_board.cells.keys.sample(3)
     while computer_board.valid_placement?(computer_cruiser, random_array) == false
       random_array = computer_board.cells.keys.sample(3)
@@ -53,7 +63,9 @@ class Battleship
       random_array = computer_board.cells.keys.sample(2)
     end
     computer_board.place(computer_sub, random_array)
+  end
 
+  def place_user_ships
     input = nil
     puts "I have laid out my ships on the grid.\nYou now need to lay out your ships.\nThe Cruiser is three units long and the Submarine is two units long."
     puts user_board.render
@@ -87,13 +99,14 @@ class Battleship
     user_board.place(user_sub, input_array)
     puts "\n"
     puts user_board.render(true)
-    game
   end
 
   def turn
+    puts "\n"
     puts "=============COMPUTER BOARD============="
-    puts computer_board.render
+    puts computer_board.render(true)
 
+    puts "\n"
     puts "=============STUDENT BOARD============="
     puts user_board.render(true)
 
