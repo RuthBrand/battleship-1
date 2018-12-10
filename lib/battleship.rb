@@ -1,16 +1,12 @@
 class Battleship
   attr_reader :computer_board,
-              :computer_cruiser,
-              :computer_sub,
+              :computer_ship_1,
+              :computer_ship_2,
               :user_board,
-              :user_cruiser,
-              :user_sub
+              :user_ship_1,
+              :user_ship_2
 
   def initialize
-    @computer_cruiser = Ship.new("Cruiser", 3)
-    @computer_sub = Ship.new("Submarine", 2)
-    @user_cruiser = Ship.new("Cruiser", 3)
-    @user_sub = Ship.new("Submarine", 2)
     main_menu
   end
 
@@ -33,6 +29,7 @@ class Battleship
 
   def setup
     create_custom_board
+    custom_user_ships
     place_computer_ships
     place_user_ships
     game
@@ -51,31 +48,88 @@ class Battleship
     @computer_board = Board.new(user_board_size, row_letter)
   end
 
-  def place_computer_ships
-    random_array = computer_board.cells.keys.sample(3)
-    while computer_board.valid_placement?(computer_cruiser, random_array) == false
-      random_array = computer_board.cells.keys.sample(3)
-    end
-    computer_board.place(computer_cruiser, random_array)
+  def custom_user_ships
+    puts "Please name your first ship:"
+    print ">"
+    custom_ship_name_1 = gets.chomp
+    puts "Please choose a length for your #{custom_ship_name_1}:"
+    print ">"
+    custom_ship_length_1 = gets.chomp.to_i
 
-    random_array = computer_board.cells.keys.sample(2)
-    while computer_board.valid_placement?(computer_sub, random_array) == false
-      random_array = computer_board.cells.keys.sample(2)
+    @computer_ship_1 = Ship.new(custom_ship_name_1, custom_ship_length_1)
+    @user_ship_1 = Ship.new(custom_ship_name_1, custom_ship_length_1)
+
+    puts "Please name your second ship:"
+    print ">"
+    custom_ship_name_2 = gets.chomp
+    puts "Please choose a length for your #{custom_ship_name_2}:"
+    print ">"
+    custom_ship_length_2 = gets.chomp.to_i
+
+    @computer_ship_2 = Ship.new(custom_ship_name_2, custom_ship_length_2)
+    @user_ship_2 = Ship.new(custom_ship_name_2, custom_ship_length_2)
+  end
+
+  def place_computer_ships
+    coordinate_array = []
+    while computer_board.valid_placement?(computer_ship_1, coordinate_array) == false
+      random_coordinate = computer_board.cells.keys.sample
+      randomizer = [1, 2]
+      if randomizer.sample == 1
+        coordinate_index = computer_board.cells.keys.index(random_coordinate)
+        coordinate_range = coordinate_index..(coordinate_index + (computer_ship_1.length - 1))
+        coordinate_array = coordinate_range.map do |index|
+          computer_board.cells.keys[index]
+        end
+      else
+        computer_board.cells.keys.each do |coordinate|
+          if coordinate.include?(random_coordinate[1])
+            coordinate_array << coordinate
+          end
+          if coordinate_array.count == computer_ship_1.length
+            break
+          end
+        end
+      end
     end
-    computer_board.place(computer_sub, random_array)
+    computer_board.place(computer_ship_1, coordinate_array)
+
+    coordinate_array = []
+    while computer_board.valid_placement?(computer_ship_2, coordinate_array) == false
+      random_coordinate = computer_board.cells.keys.sample
+      randomizer = [1, 2]
+      if randomizer.sample == 2
+        coordinate_index = computer_board.cells.keys.index(random_coordinate)
+        coordinate_range = coordinate_index..(coordinate_index + (computer_ship_2.length - 1))
+        coordinate_array = coordinate_range.map do |index|
+          computer_board.cells.keys[index]
+        end
+      else
+        computer_board.cells.keys.each do |coordinate|
+          if coordinate.include?(random_coordinate[1])
+            coordinate_array << coordinate
+          end
+          if coordinate_array.count == computer_ship_2.length
+            break
+          end
+        end
+      end
+    end
+    computer_board.place(computer_ship_2, coordinate_array)
+    puts computer_board.render(true)
   end
 
   def place_user_ships
     input = nil
-    puts "I have laid out my ships on the grid.\nYou now need to lay out your ships.\nThe Cruiser is three units long and the Submarine is two units long."
+    puts "I have laid out my ships on the grid.\nYou now need to lay out your ships.\nThe #{user_ship_1.name} is #{user_ship_1.length} units long and the #{user_ship_2.name} is #{user_ship_2.length} units long."
     puts user_board.render
-    puts "Enter the squares for the Cruiser (3 spaces):"
+    puts "Enter the squares for the #{user_ship_1.name} (#{user_ship_1.length} spaces):"
     print ">"
     input = gets.chomp
     input = input.upcase
 
     input_array = input.split
-    while user_board.valid_placement?(user_cruiser, input_array) == false
+    while user_board.valid_placement?(user_ship_1, input_array) == false
       puts "Those are invalid coordinates. Please try again:"
       print ">"
       input = gets.chomp
@@ -83,20 +137,20 @@ class Battleship
       input_array = input.split
     end
 
-    user_board.place(user_cruiser, input_array)
+    user_board.place(user_ship_1, input_array)
     puts user_board.render(true)
-    puts "Enter the squares for the Submarine (2 spaces):"
+    puts "Enter the squares for the #{user_ship_2.name} (#{user_ship_2.length} spaces):"
     print ">"
     input = gets.upcase.chomp
     input_array = input.split
 
-    while user_board.valid_placement?(user_sub, input_array) == false
+    while user_board.valid_placement?(user_ship_2, input_array) == false
       puts "Those are invalid coordinates. Please try again:"
       input = gets.upcase.chomp
       input_array = input.split
     end
 
-    user_board.place(user_sub, input_array)
+    user_board.place(user_ship_2, input_array)
     puts "\n"
     puts user_board.render(true)
   end
@@ -133,7 +187,7 @@ class Battleship
   end
 
   def game
-    until (computer_cruiser.sunk? == true && computer_sub.sunk? == true) || (user_cruiser.sunk? == true && user_sub.sunk? == true)
+    until (computer_ship_1.sunk? == true && computer_ship_2.sunk? == true) || (user_ship_1.sunk? == true && user_ship_2.sunk? == true)
       turn
     end
     end_game
@@ -146,7 +200,7 @@ class Battleship
     puts "=============STUDENT BOARD============="
     puts user_board.render(true)
 
-    if computer_cruiser.sunk? == true && computer_sub.sunk? == true
+    if computer_ship_1.sunk? == true && computer_ship_2.sunk? == true
       puts "You Won!!!"
     else
       puts "I Won... You'll never beat me..."
