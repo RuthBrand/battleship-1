@@ -7,10 +7,8 @@ class Battleship
               :user_sub
 
   def initialize
-    @computer_board = Board.new
     @computer_cruiser = Ship.new("Cruiser", 3)
     @computer_sub = Ship.new("Submarine", 2)
-    @user_board = Board.new
     @user_cruiser = Ship.new("Cruiser", 3)
     @user_sub = Ship.new("Submarine", 2)
     main_menu
@@ -34,6 +32,16 @@ class Battleship
   end
 
   def setup
+    puts "Please choose the size of your board (Minimum 4, Maximum 26):"
+    print ">"
+    user_board_size = gets.chomp.to_i
+    until user_board_size >= 4 && user_board_size <= 26
+      puts "Invalid board size. Please pick again:"
+      user_board_size = gets.chomp.to_i
+    end
+    row_letter = (user_board_size + 64).chr
+    @user_board = Board.new(user_board_size, row_letter)
+    @computer_board = Board.new(user_board_size, row_letter)
     random_array = computer_board.cells.keys.sample(3)
     while computer_board.valid_placement?(computer_cruiser, random_array) == false
       random_array = computer_board.cells.keys.sample(3)
