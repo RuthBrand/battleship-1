@@ -34,15 +34,6 @@ class Battleship
   end
 
   def setup
-<<<<<<< HEAD
-    puts "\n"
-
-    computer_board = Board.new
-    computer_cruiser = Ship.new("Cruiser", 3)
-    computer_sub = Ship.new("Submarine", 2)
-
-=======
->>>>>>> 16e3a2677879cd62a3f8497f50cd813f31676803
     random_array = computer_board.cells.keys.sample(3)
     while computer_board.valid_placement?(computer_cruiser, random_array) == false
       random_array = computer_board.cells.keys.sample(3)
@@ -73,29 +64,6 @@ class Battleship
     end
 
     user_board.place(user_cruiser, input_array)
-<<<<<<< HEAD
-
-    puts "\n"
-    puts user_board.render(true)
-    puts "Enter the squares for the Submarine (2 spaces):"
-    print ">"
-
-    input = gets.chomp
-    input_array = input.split
-    while user_board.valid_placement?(user_cruiser, input_array) == false
-      puts "Those are invalid coordinates. Please try again:"
-      print ">"
-      input = gets.chomp
-      input_array = input.split
-    end
-    user_board.place(user_sub, input_array)
-
-    turn
-  end
-
-  def turn
-    main_menu
-=======
     puts user_board.render(true)
     puts "Enter the squares for the Submarine (2 spaces):"
     print ">"
@@ -127,7 +95,7 @@ class Battleship
     user_shot = gets.upcase.chomp
     while computer_board.valid_coordinate?(user_shot) == false || computer_board.cells[user_shot].fired_upon? == true
       puts "Please enter a valid coordinate:"
-      puts ">"
+      print ">"
       user_shot = gets.upcase.chomp
     end
 
@@ -157,6 +125,5 @@ class Battleship
       puts "I Won... You'll never beat me..."
     end
     puts "Would you like to play again?"
->>>>>>> 16e3a2677879cd62a3f8497f50cd813f31676803
   end
 end

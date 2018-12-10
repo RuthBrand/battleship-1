@@ -51,12 +51,8 @@ class Cell
       "Miss"
     elsif @status == "H"
       "Hit"
-    else @status == "X"
+    elsif @status == "X"
       "Hit! The ship is sinking!"
     end
-
-
   end
-
-
 end

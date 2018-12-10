@@ -110,20 +110,20 @@ class BoardTest < MiniTest::Test
   def test_it_can_render_a_header
     board = Board.new
 
-    assert_equal "  1 2 3 4 \n", board.render_header
+    assert_equal "  1  2  3  4  \n", board.render_header
   end
 
   def test_it_can_render_a_single_row
     board = Board.new
 
-    assert_equal "A . . . . \n", board.render_row("A")
-    assert_equal "B . . . . \n", board.render_row("B")
+    assert_equal "A .  .  .  . \n", board.render_row("A")
+    assert_equal "B .  .  .  . \n", board.render_row("B")
   end
 
   def test_it_can_render_a_board
     board = Board.new
 
-    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
+    assert_equal "  1  2  3  4  \nA .  .  .  . \nB .  .  .  . \nC .  .  .  . \nD .  .  .  . \n", board.render
   end
 
   def test_it_can_show_user_ships
@@ -131,7 +131,7 @@ class BoardTest < MiniTest::Test
     cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["B1", "B2", "B3"])
 
-    assert_equal "  1 2 3 4 \nA . . . . \nB S S S . \nC . . . . \nD . . . . \n", board.render(true)
+    assert_equal "  1  2  3  4  \nA .  .  .  . \nB S  S  S  . \nC .  .  .  . \nD .  .  .  . \n", board.render(true)
   end
 
   def test_it_can_show_a_miss
@@ -139,7 +139,7 @@ class BoardTest < MiniTest::Test
     cell_1 = board.cells["C3"]
     cell_1.fire_upon
 
-    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . M . \nD . . . . \n", board.render
+    assert_equal "  1  2  3  4  \nA .  .  .  . \nB .  .  .  . \nC .  .  M  . \nD .  .  .  . \n", board.render
   end
 
   def test_it_can_show_a_hit
@@ -149,9 +149,9 @@ class BoardTest < MiniTest::Test
     board.place(cruiser, ["B1", "B2", "B3"])
     cell_1.fire_upon
 
-    assert_equal "  1 2 3 4 \nA . . . . \nB . . H . \nC . . . . \nD . . . . \n", board.render
+    assert_equal "  1  2  3  4  \nA .  .  .  . \nB .  .  H  . \nC .  .  .  . \nD .  .  .  . \n", board.render
 
-    assert_equal "  1 2 3 4 \nA . . . . \nB S S H . \nC . . . . \nD . . . . \n", board.render(true)
+    assert_equal "  1  2  3  4  \nA .  .  .  . \nB S  S  H  . \nC .  .  .  . \nD .  .  .  . \n", board.render(true)
   end
 
   def test_it_can_show_a_sunken_ship
@@ -163,6 +163,6 @@ class BoardTest < MiniTest::Test
     cell_1.fire_upon
     cell_2.fire_upon
 
-    assert_equal "  1 2 3 4 \nA . . . . \nB . X X . \nC . . . . \nD . . . . \n", board.render
+    assert_equal "  1  2  3  4  \nA .  .  .  . \nB .  X  X  . \nC .  .  .  . \nD .  .  .  . \n", board.render
   end
 end
