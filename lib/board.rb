@@ -40,8 +40,8 @@ class Board
   end
 
   def valid_horizontal_consecutive?(ship, coordinates)
-    letters = [] # P, Q, R
-    numbers = [] # 11, 13, 18
+    letters = []
+    numbers = []
     coordinates.each do |coordinate|
       letters << coordinate[0]
       if coordinate.length == 2
