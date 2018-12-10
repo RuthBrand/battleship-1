@@ -2,7 +2,8 @@ require './lib/ship'
 
 class Cell
   attr_reader :coordinate,
-              :ship
+              :ship,
+              :status
 
   def initialize(coordinate, ship = nil)
     @coordinate = coordinate
@@ -26,7 +27,9 @@ class Cell
   def fire_upon
     @fired_upon = true
     @ship.hit if @ship != nil
-    if @ship != nil
+    if @ship && @ship.sunk?
+      @status = "X"
+    elsif @ship != nil
       @status = "H"
     else
       @status = "M"
@@ -42,4 +45,18 @@ class Cell
       @status
     end
   end
+
+  def status_feedback
+    if @status == "M"
+      "Miss"
+    elsif @status == "H"
+      "Hit"
+    else @status == "X"
+      "Hit! The ship is sinking!"
+    end
+
+
+  end
+
+
 end

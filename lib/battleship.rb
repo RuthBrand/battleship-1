@@ -1,13 +1,18 @@
-# require './lib/board'
-
 class Battleship
-
+  attr_reader :computer_board,
+              :computer_cruiser,
+              :computer_sub,
+              :user_board,
+              :user_cruiser,
+              :user_sub
 
   def initialize
-    start
-  end
-
-  def start
+    @computer_board = Board.new
+    @computer_cruiser = Ship.new("Cruiser", 3)
+    @computer_sub = Ship.new("Submarine", 2)
+    @user_board = Board.new
+    @user_cruiser = Ship.new("Cruiser", 3)
+    @user_sub = Ship.new("Submarine", 2)
     main_menu
   end
 
@@ -29,12 +34,15 @@ class Battleship
   end
 
   def setup
+<<<<<<< HEAD
     puts "\n"
 
     computer_board = Board.new
     computer_cruiser = Ship.new("Cruiser", 3)
     computer_sub = Ship.new("Submarine", 2)
 
+=======
+>>>>>>> 16e3a2677879cd62a3f8497f50cd813f31676803
     random_array = computer_board.cells.keys.sample(3)
     while computer_board.valid_placement?(computer_cruiser, random_array) == false
       random_array = computer_board.cells.keys.sample(3)
@@ -46,10 +54,6 @@ class Battleship
       random_array = computer_board.cells.keys.sample(2)
     end
     computer_board.place(computer_sub, random_array)
-
-    user_board = Board.new
-    user_cruiser = Ship.new("Cruiser", 3)
-    user_sub = Ship.new("Submarine", 2)
 
     input = nil
     puts "I have laid out my ships on the grid.\nYou now need to lay out your ships.\nThe Cruiser is three units long and the Submarine is two units long."
@@ -67,7 +71,9 @@ class Battleship
       input = input.upcase
       input_array = input.split
     end
+
     user_board.place(user_cruiser, input_array)
+<<<<<<< HEAD
 
     puts "\n"
     puts user_board.render(true)
@@ -89,5 +95,68 @@ class Battleship
 
   def turn
     main_menu
+=======
+    puts user_board.render(true)
+    puts "Enter the squares for the Submarine (2 spaces):"
+    print ">"
+    input = gets.upcase.chomp
+    input_array = input.split
+
+    while user_board.valid_placement?(user_sub, input_array) == false
+      puts "Those are invalid coordinates. Please try again:"
+      input = gets.upcase.chomp
+      input_array = input.split
+    end
+
+    user_board.place(user_sub, input_array)
+    puts "\n"
+    puts user_board.render(true)
+    game
+  end
+
+  def turn
+    puts "=============COMPUTER BOARD============="
+    puts computer_board.render
+
+    puts "=============STUDENT BOARD============="
+    puts user_board.render(true)
+
+    puts "Enter the coordinate for your shot:"
+    print '>'
+
+    user_shot = gets.upcase.chomp
+    while computer_board.valid_coordinate?(user_shot) == false || computer_board.cells[user_shot].fired_upon? == true
+      puts "Please enter a valid coordinate:"
+      puts ">"
+      user_shot = gets.upcase.chomp
+    end
+
+    computer_board.cells[user_shot].fire_upon
+    computer_shot = user_board.cells.keys.sample
+
+    while user_board.valid_coordinate?(computer_shot) == false || user_board.cells[computer_shot].fired_upon? == true
+      computer_shot = user_board.cells.keys.sample
+    end
+
+    user_board.cells[computer_shot].fire_upon
+    puts "Your shot on #{user_shot} was a #{computer_board.cells[user_shot].status_feedback}"
+    puts "My shot on #{computer_shot} was a #{user_board.cells[computer_shot].status_feedback}"
+  end
+
+  def game
+    until (computer_cruiser.sunk? == true && computer_sub.sunk? == true) || (user_cruiser.sunk? == true && user_sub.sunk? == true)
+      turn
+    end
+    end_game
+  end
+
+  def end_game
+    if computer_cruiser.sunk? == true && computer_sub.sunk? == true
+      puts "You Won!!!"
+    else
+      puts "I Won... You'll never beat me..."
+    end
+    puts "Would you like to play again?"
+>>>>>>> 16e3a2677879cd62a3f8497f50cd813f31676803
   end
 end
