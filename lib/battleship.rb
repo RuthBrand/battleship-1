@@ -119,6 +119,12 @@ class Battleship
   end
 
   def end_game
+    puts "=============COMPUTER BOARD============="
+    puts computer_board.render
+
+    puts "=============STUDENT BOARD============="
+    puts user_board.render(true)
+
     if computer_cruiser.sunk? == true && computer_sub.sunk? == true
       puts "You Won!!!"
     else
