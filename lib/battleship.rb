@@ -158,7 +158,7 @@ class Battleship
   def turn
     puts "\n"
     puts "=============COMPUTER BOARD============="
-    puts computer_board.render(true)
+    puts computer_board.render
 
     puts "\n"
     puts "=============STUDENT BOARD============="
