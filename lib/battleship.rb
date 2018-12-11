@@ -1,6 +1,7 @@
 class Battleship
   attr_reader :computer_board,
-              :user_board
+              :user_board,
+              :user_board_size
 
   def initialize
     @user_ships = []
@@ -36,12 +37,12 @@ class Battleship
   def create_custom_board
     puts "Please choose the size of your board (Minimum 4, Maximum 26):"
     print ">"
-    user_board_size = gets.chomp.to_i
+    @user_board_size = gets.chomp.to_i
     until user_board_size >= 4 && user_board_size <= 26
       puts "Invalid board size. Please pick again:"
-      user_board_size = gets.chomp.to_i
+      @user_board_size = gets.chomp.to_i
     end
-    row_letter = (user_board_size + 64).chr
+    row_letter = (@user_board_size + 64).chr
     @user_board = Board.new(user_board_size, row_letter)
     @computer_board = Board.new(user_board_size, row_letter)
   end
@@ -55,8 +56,11 @@ class Battleship
       puts "Please choose a length for your #{custom_ship_name}:"
       print ">"
       custom_ship_length = gets.chomp.to_i
-
-
+      while custom_ship_length == 0 || custom_ship_length > user_board_size
+        puts "Please enter a valid ship length (max is #{user_board_size})."
+        print ">"
+        custom_ship_length = gets.chomp.to_i
+      end
       @computer_ships << Ship.new(custom_ship_name, custom_ship_length)
       @user_ships << Ship.new(custom_ship_name, custom_ship_length)
       puts "Would you like to create another ship? (Y or N)"
@@ -136,6 +140,9 @@ class Battleship
 
     user_shot = gets.upcase.chomp
     while computer_board.valid_coordinate?(user_shot) == false || computer_board.cells[user_shot].fired_upon? == true
+      if computer_board.cells[user_shot].fired_upon? == true
+        puts "This coordinate has already been fired upon."
+      end
       puts "Please enter a valid coordinate:"
       print ">"
       user_shot = gets.upcase.chomp
