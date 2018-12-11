@@ -6,7 +6,6 @@ require './lib/cell'
 require './lib/board'
 require './lib/battleship'
 
-
 class BattleshipTest < MiniTest::Test
 
   def test_it_exists
@@ -14,7 +13,4 @@ class BattleshipTest < MiniTest::Test
 
     assert_instance_of Battleship, battleship
   end
-
-
-
 end

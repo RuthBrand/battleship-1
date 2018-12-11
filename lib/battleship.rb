@@ -111,9 +111,8 @@ class Battleship
       puts "Enter the squares for the #{user_ship.name} (#{user_ship.length} spaces):"
       print ">"
       user_ship_coordinates = gets.upcase.chomp
-
-
       coordinate_array = user_ship_coordinates.split
+
       while user_board.valid_placement?(user_ship, coordinate_array) == false
         puts "Those are invalid coordinates. Please try again:"
         print ">"
@@ -139,6 +138,7 @@ class Battleship
     print '>'
 
     user_shot = gets.upcase.chomp
+
     while computer_board.valid_coordinate?(user_shot) == false || computer_board.cells[user_shot].fired_upon? == true
       if computer_board.cells[user_shot].fired_upon? == true
         puts "This coordinate has already been fired upon."
@@ -174,8 +174,7 @@ class Battleship
       @user_ships.each do |ship|
         user_sunk_ships << ship if ship.sunk?
       end
-
-
+      
     end
     end_game
   end
