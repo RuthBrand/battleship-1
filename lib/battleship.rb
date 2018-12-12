@@ -31,7 +31,20 @@ class Battleship
 
   def setup
     create_custom_board
-    custom_user_ships
+    puts "Would you like to create your own ships? Or use the default ships (Cruiser, Submarine)?"
+    puts "Please enter c to create custom ships; enter d to use the default ships."
+    print ">"
+    user_input = gets.upcase.chomp
+    while user_input != "C" && user_input != "D"
+      puts "Please enter either c or d."
+      print ">"
+      user_input = gets.upcase.chomp
+    end
+    if user_input == "C"
+      custom_user_ships
+    else
+      default_ships
+    end
     place_computer_ships
     place_user_ships
     game
