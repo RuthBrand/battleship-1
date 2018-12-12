@@ -37,6 +37,16 @@ class Battleship
     game
   end
 
+  def default_ships
+    user_cruiser = Ship.new("Cruiser", 3)
+    user_sub = Ship.new("Submarine", 2)
+    computer_cruiser = Ship.new("Cruiser", 3)
+    computer_sub = Ship.new("Submarine", 2)
+    @user_ships = [user_cruiser, user_sub]
+    @computer_ships = [computer_cruiser, computer_sub]
+  end
+
+
   def create_custom_board
     puts "Please choose the size of your board (max width/length is 26, min is 4):"
     puts "Enter in the width of the board."
