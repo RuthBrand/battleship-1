@@ -173,10 +173,10 @@ class Battleship
   end
 
   def place_user_ships
-    puts "I have laid out my ships on the grid.\nYou now need to lay out your ships."
+    puts "I have laid out my ships on the grid.\nYou now need to lay out your #{@user_ships.count} ships."
     @user_ships.each do |user_ship|
       user_ship_coordinates = nil
-      puts "#{user_ship.name} is #{user_ship.length} units long."
+      puts "The #{user_ship.name} is #{user_ship.length} units long."
       puts user_board.render(true)
       puts "Enter the squares for the #{user_ship.name} (#{user_ship.length} spaces):"
       print ">"
@@ -209,7 +209,9 @@ class Battleship
     user_shot = gets.upcase.chomp
 
     while computer_board.valid_coordinate?(user_shot) == false || computer_board.cells[user_shot].fired_upon? == true
-      if computer_board.cells[user_shot].fired_upon? == true
+      if computer_board.valid_coordinate?(user_shot) == false
+        puts "This is not a valid coordinate."
+      elsif computer_board.cells[user_shot].fired_upon? == true
         puts "This coordinate has already been fired upon."
       end
       puts "Please enter a valid coordinate:"
