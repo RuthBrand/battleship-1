@@ -2,7 +2,9 @@ class Battleship
   attr_reader :computer_board,
               :user_board,
               :board_width,
-              :board_length
+              :board_length,
+              :user_ships,
+              :computer_ships
 
   def initialize
     @user_ships = []
@@ -62,7 +64,15 @@ class Battleship
 
   def custom_user_ships
     user_input = "Y"
-    while user_input == "Y"
+    ship_max = 0
+    if board_length > board_width
+      ship_max = board_width
+    else
+      ship_max = board_length
+    end
+    while user_input == "Y" && user_ships.count < ship_max
+      puts "You can make #{ship_max} ships"
+      puts "You have made #{user_ships.count} ships."
       puts "Please name your ship:"
       print ">"
       custom_ship_name = gets.chomp
@@ -76,6 +86,10 @@ class Battleship
       end
       @computer_ships << Ship.new(custom_ship_name, custom_ship_length)
       @user_ships << Ship.new(custom_ship_name, custom_ship_length)
+      if ship_max == user_ships.count
+        puts "You have reached the maximum number of ships."
+      end
+        break if ship_max == user_ships.count
       puts "Would you like to create another ship? (Y or N)"
       print ">"
       user_input = gets.upcase.chomp
