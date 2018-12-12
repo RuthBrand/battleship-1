@@ -1,9 +1,8 @@
 class Battleship
   attr_reader :computer_board,
               :user_board,
-              :user_board_width,
-              :user_board_length
-              #:user_board_size
+              :board_width,
+              :board_length
 
   def initialize
     @user_ships = []
@@ -37,23 +36,28 @@ class Battleship
   end
 
   def create_custom_board
-    puts "Please choose the size of your board (max width/length is 26):"
+    puts "Please choose the size of your board (max width/length is 26, min is 4):"
     puts "Enter in the width of the board."
     print ">"
-    @user_board_width = gets.chomp.to_i
+    local_board_width = gets.chomp.to_i
+    while local_board_width < 4 || local_board_width > 26
+      puts "Invalid board width. Please pick a number between 4 and 26:"
+      local_board_width = gets.chomp.to_i
+    end
+    @board_width = local_board_width
+
     puts "Enter in the length of the board."
     print ">"
-    @user_board_length = gets.chomp.to_i
+    local_board_length = gets.chomp.to_i
+    while local_board_length < 4 || local_board_length > 26
+      puts "Invalid board length. Please pick a number between 4 and 26:"
+      local_board_length = gets.chomp.to_i
+    end
+    @board_length = local_board_length
 
-    # @user_board_size = gets.chomp.to_i
-    # until user_board_size >= 4 && user_board_size <= 26
-    #   puts "Invalid board size. Please pick again:"
-    #   @user_board_size = gets.chomp.to_i
-    # end
-    row_letter = (@user_board_length + 64).chr
-    @user_board = Board.new(@user_board_width, row_letter)
-    @computer_board = Board.new(@user_board_width, row_letter)
-    # puts @user_board.render
+    row_letter = (@board_length + 64).chr
+    @user_board = Board.new(@board_width, row_letter)
+    @computer_board = Board.new(@board_width, row_letter)
   end
 
   def custom_user_ships
@@ -65,7 +69,7 @@ class Battleship
       puts "Please choose a length for your #{custom_ship_name}:"
       print ">"
       custom_ship_length = gets.chomp.to_i
-      while custom_ship_length == 0 || (custom_ship_length > @user_board_width && custom_ship_length > @user_board_length)
+      while custom_ship_length == 0 || (custom_ship_length > @board_width && custom_ship_length > @board_length)
         puts "Please enter a valid ship length"
         print ">"
         custom_ship_length = gets.chomp.to_i
