@@ -1,7 +1,9 @@
 class Battleship
   attr_reader :computer_board,
               :user_board,
-              :user_board_size
+              :user_board_width,
+              :user_board_length
+              #:user_board_size
 
   def initialize
     @user_ships = []
@@ -35,16 +37,23 @@ class Battleship
   end
 
   def create_custom_board
-    puts "Please choose the size of your board (Minimum 4, Maximum 26):"
+    puts "Please choose the size of your board (max width/length is 26):"
+    puts "Enter in the width of the board."
     print ">"
-    @user_board_size = gets.chomp.to_i
-    until user_board_size >= 4 && user_board_size <= 26
-      puts "Invalid board size. Please pick again:"
-      @user_board_size = gets.chomp.to_i
-    end
-    row_letter = (@user_board_size + 64).chr
-    @user_board = Board.new(user_board_size, row_letter)
-    @computer_board = Board.new(user_board_size, row_letter)
+    @user_board_width = gets.chomp.to_i
+    puts "Enter in the length of the board."
+    print ">"
+    @user_board_length = gets.chomp.to_i
+
+    # @user_board_size = gets.chomp.to_i
+    # until user_board_size >= 4 && user_board_size <= 26
+    #   puts "Invalid board size. Please pick again:"
+    #   @user_board_size = gets.chomp.to_i
+    # end
+    row_letter = (@user_board_length + 64).chr
+    @user_board = Board.new(@user_board_width, row_letter)
+    @computer_board = Board.new(@user_board_width, row_letter)
+    # puts @user_board.render
   end
 
   def custom_user_ships
@@ -56,8 +65,8 @@ class Battleship
       puts "Please choose a length for your #{custom_ship_name}:"
       print ">"
       custom_ship_length = gets.chomp.to_i
-      while custom_ship_length == 0 || custom_ship_length > user_board_size
-        puts "Please enter a valid ship length (max is #{user_board_size})."
+      while custom_ship_length == 0 || (custom_ship_length > @user_board_width && custom_ship_length > @user_board_length)
+        puts "Please enter a valid ship length"
         print ">"
         custom_ship_length = gets.chomp.to_i
       end
@@ -80,13 +89,15 @@ class Battleship
       coordinate_array = []
       while computer_board.valid_placement?(computer_ship, coordinate_array) == false
         random_coordinate = computer_board.cells.keys.sample
-        randomizer = [:horizontal, :vertical]
-        if randomizer.sample == :horizontal
+        randomizer = ["horizontal", "vertical"]
+        randomizer_selection = randomizer.sample
+        if randomizer_selection == "horizontal"
           coordinate_index = computer_board.cells.keys.index(random_coordinate)
           coordinate_range = coordinate_index..(coordinate_index + (computer_ship.length - 1))
           coordinate_array = coordinate_range.map do |index|
             computer_board.cells.keys[index]
           end
+          break
         else
           computer_board.cells.keys.each do |coordinate|
             if coordinate.include?(random_coordinate[1])
@@ -174,7 +185,7 @@ class Battleship
       @user_ships.each do |ship|
         user_sunk_ships << ship if ship.sunk?
       end
-      
+
     end
     end_game
   end
