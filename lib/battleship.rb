@@ -30,12 +30,53 @@ class Battleship
   end
 
   def setup
-    create_custom_board
-    custom_user_ships
+    puts "Would you like to create your own board? Or use the default board (4x4)?"
+    puts "Please enter c to create custom board; enter d to use the default board."
+    print ">"
+    user_input = gets.upcase.chomp
+    while user_input != "C" && user_input != "D"
+      puts "Please enter either c or d."
+      print ">"
+      user_input = gets.upcase.chomp
+    end
+    if user_input == "C"
+      create_custom_board
+    else
+      default_board
+    end
+    puts "Would you like to create your own ships? Or use the default ships (Cruiser, Submarine)?"
+    puts "Please enter c to create custom ships; enter d to use the default ships."
+    print ">"
+    user_input = gets.upcase.chomp
+    while user_input != "C" && user_input != "D"
+      puts "Please enter either c or d."
+      print ">"
+      user_input = gets.upcase.chomp
+    end
+    if user_input == "C"
+      custom_user_ships
+    else
+      default_ships
+    end
     place_computer_ships
     place_user_ships
     game
   end
+
+  def default_ships
+    user_cruiser = Ship.new("Cruiser", 3)
+    user_sub = Ship.new("Submarine", 2)
+    computer_cruiser = Ship.new("Cruiser", 3)
+    computer_sub = Ship.new("Submarine", 2)
+    @user_ships = [user_cruiser, user_sub]
+    @computer_ships = [computer_cruiser, computer_sub]
+  end
+
+  def default_board
+    @user_board = Board.new(4, "D")
+    @computer_board = Board.new(4, "D")
+  end
+
 
   def create_custom_board
     puts "Please choose the size of your board (max width/length is 26, min is 4):"
