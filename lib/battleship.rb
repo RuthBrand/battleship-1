@@ -191,7 +191,6 @@ class Battleship
       end
 
       user_board.place(user_ship, coordinate_array)
-      puts user_board.render(true)
     end
   end
 
