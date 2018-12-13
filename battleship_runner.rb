@@ -3,5 +3,4 @@ require './lib/cell'
 require './lib/board'
 require './lib/battleship'
 
-
-battleship = Battleship.new
+Battleship.new

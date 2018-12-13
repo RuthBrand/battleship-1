@@ -35,6 +35,7 @@ class CellTest < Minitest::Test
     assert_equal true, cell.empty?
 
     cruiser = Ship.new("Cruiser", 3)
+
     cell.place_ship(cruiser)
 
     assert_equal false, cell.empty?
@@ -43,11 +44,13 @@ class CellTest < Minitest::Test
   def test_place_ship_method
     cell = Cell.new("B4")
     cruiser = Ship.new("Cruiser", 3)
+
     cell.place_ship(cruiser)
 
     assert_equal cruiser, cell.ship
 
     submarine = Ship.new("Submarine", 2)
+
     cell.place_ship(submarine)
 
     assert_equal submarine, cell.ship
@@ -61,6 +64,7 @@ class CellTest < Minitest::Test
 
   def test_cell_can_be_fired_upon
     cell = Cell.new("A1")
+
     cell.fire_upon
 
     assert_equal true, cell.fired_upon?
@@ -69,6 +73,7 @@ class CellTest < Minitest::Test
   def test_if_fire_upon_changes_ship_health
     cell = Cell.new("D3")
     cruiser = Ship.new("Cruiser", 3)
+
     cell.place_ship(cruiser)
     cell.fire_upon
 
@@ -83,6 +88,7 @@ class CellTest < Minitest::Test
 
   def test_that_status_defaults_to_miss_when_fired_upon
     cell_1 = Cell.new("A2")
+
     cell_1.fire_upon
 
     assert_equal "M", cell_1.render
@@ -91,6 +97,7 @@ class CellTest < Minitest::Test
   def test_that_status_changes_to_hit_if_there_is_ship_when_fired_upon
     cell_1 = Cell.new("A1")
     cruiser = Ship.new("Cruiser", 3)
+
     cell_1.place_ship(cruiser)
     cell_1.fire_upon
 
@@ -100,6 +107,7 @@ class CellTest < Minitest::Test
   def test_that_status_changes_to_X_when_ship_health_is_zero
     cell_1 = Cell.new("A1")
     cruiser = Ship.new("Cruiser", 3)
+
     cell_1.place_ship(cruiser)
     3.times do
       cell_1.fire_upon
@@ -111,6 +119,7 @@ class CellTest < Minitest::Test
   def test_it_shows_user_ship_that_is_not_fired_upon
     cell_1 = Cell.new("A1")
     cruiser = Ship.new("Cruiser", 3)
+    
     cell_1.place_ship(cruiser)
 
     assert_equal "S", cell_1.render(true)

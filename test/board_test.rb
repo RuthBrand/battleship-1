@@ -89,9 +89,10 @@ class BoardTest < MiniTest::Test
   def test_it_can_place_ships_in_cells
     board = Board.new
     submarine = Ship.new("Submarine", 2)
-    board.place(submarine, ["B2", "C2"])
     cell_1 = board.cells["B2"]
     cell_2 = board.cells["C2"]
+
+    board.place(submarine, ["B2", "C2"])
 
     assert_equal submarine, cell_1.ship
     assert_equal submarine, cell_2.ship
@@ -102,6 +103,7 @@ class BoardTest < MiniTest::Test
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
+
     board.place(submarine, ["B2", "C2"])
 
     refute board.valid_placement?(cruiser, ["B1", "B2", "B3"])
@@ -129,6 +131,7 @@ class BoardTest < MiniTest::Test
   def test_it_can_show_user_ships
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
+
     board.place(cruiser, ["B1", "B2", "B3"])
 
     assert_equal "  1  2  3  4  \nA .  .  .  . \nB S  S  S  . \nC .  .  .  . \nD .  .  .  . \n", board.render(true)
@@ -137,6 +140,7 @@ class BoardTest < MiniTest::Test
   def test_it_can_show_a_miss
     board = Board.new
     cell_1 = board.cells["C3"]
+
     cell_1.fire_upon
 
     assert_equal "  1  2  3  4  \nA .  .  .  . \nB .  .  .  . \nC .  .  M  . \nD .  .  .  . \n", board.render
@@ -146,11 +150,11 @@ class BoardTest < MiniTest::Test
     board = Board.new
     cell_1 = board.cells["B3"]
     cruiser = Ship.new("Cruiser", 3)
+
     board.place(cruiser, ["B1", "B2", "B3"])
     cell_1.fire_upon
 
     assert_equal "  1  2  3  4  \nA .  .  .  . \nB .  .  H  . \nC .  .  .  . \nD .  .  .  . \n", board.render
-
     assert_equal "  1  2  3  4  \nA .  .  .  . \nB S  S  H  . \nC .  .  .  . \nD .  .  .  . \n", board.render(true)
   end
 
@@ -159,6 +163,7 @@ class BoardTest < MiniTest::Test
     cell_1 = board.cells["B3"]
     cell_2 = board.cells["B2"]
     sub = Ship.new("Submarine", 2)
+    
     board.place(sub, ["B2", "B3"])
     cell_1.fire_upon
     cell_2.fire_upon

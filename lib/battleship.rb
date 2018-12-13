@@ -184,14 +184,12 @@ class Battleship
       print ">"
       user_ship_coordinates = gets.upcase.chomp
       coordinate_array = user_ship_coordinates.split
-
       while user_board.valid_placement?(user_ship, coordinate_array) == false
         puts "Those are invalid coordinates. Please try again:"
         print ">"
         user_ship_coordinates = gets.upcase.chomp
         coordinate_array = user_ship_coordinates.split
       end
-
       user_board.place(user_ship, coordinate_array)
     end
   end
@@ -200,16 +198,12 @@ class Battleship
     puts "\n"
     puts "=============COMPUTER BOARD============="
     puts computer_board.render
-
     puts "\n"
     puts "=============STUDENT BOARD============="
     puts user_board.render(true)
-
     puts "Enter the coordinate for your shot:"
     print '>'
-
     user_shot = gets.upcase.chomp
-
     while computer_board.valid_coordinate?(user_shot) == false || computer_board.cells[user_shot].fired_upon? == true
       if computer_board.valid_coordinate?(user_shot) == false
         puts "This is not a valid coordinate."
@@ -220,14 +214,11 @@ class Battleship
       print ">"
       user_shot = gets.upcase.chomp
     end
-
     computer_board.cells[user_shot].fire_upon
     computer_shot = user_board.cells.keys.sample
-
     while user_board.valid_coordinate?(computer_shot) == false || user_board.cells[computer_shot].fired_upon? == true
       computer_shot = user_board.cells.keys.sample
     end
-
     user_board.cells[computer_shot].fire_upon
     puts "Your shot on #{user_shot} was a #{computer_board.cells[user_shot].status_feedback}"
     puts "My shot on #{computer_shot} was a #{user_board.cells[computer_shot].status_feedback}"
@@ -236,7 +227,6 @@ class Battleship
   def game
     computer_sunk_ships = []
     user_sunk_ships = []
-
     until computer_sunk_ships.count == @computer_ships.count || user_sunk_ships.count == @user_ships.count
       turn
       computer_sunk_ships = []
@@ -247,20 +237,16 @@ class Battleship
       @user_ships.each do |ship|
         user_sunk_ships << ship if ship.sunk?
       end
-
     end
     end_game
   end
 
   def end_game
     computer_ships_remaining = []
-
     puts "=============COMPUTER BOARD============="
     puts computer_board.render
-
     puts "=============STUDENT BOARD============="
     puts user_board.render(true)
-
     @computer_ships.each do |ship|
       computer_ships_remaining << ship if ship.sunk? != true
     end
