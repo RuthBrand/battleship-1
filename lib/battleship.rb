@@ -75,6 +75,8 @@ class Battleship
   def default_board
     @user_board = Board.new(4, "D")
     @computer_board = Board.new(4, "D")
+    @board_length = 4
+    @board_width = 4
   end
 
 
@@ -157,6 +159,7 @@ class Battleship
             computer_board.cells.keys[index] if computer_board.cells.keys[index]
           end
         else
+          coordinate_array = []
           computer_board.cells.keys.each do |coordinate|
             if coordinate.include?(random_coordinate[1])
               coordinate_array << coordinate
@@ -168,7 +171,6 @@ class Battleship
         end
       end
       computer_board.place(computer_ship, coordinate_array)
-      require 'pry'; binding.pry
     end
   end
 
