@@ -154,9 +154,8 @@ class Battleship
           coordinate_index = computer_board.cells.keys.index(random_coordinate)
           coordinate_range = coordinate_index..(coordinate_index + (computer_ship.length - 1))
           coordinate_array = coordinate_range.map do |index|
-            computer_board.cells.keys[index]
+            computer_board.cells.keys[index] if computer_board.cells.keys[index]
           end
-          break
         else
           computer_board.cells.keys.each do |coordinate|
             if coordinate.include?(random_coordinate[1])
@@ -169,6 +168,7 @@ class Battleship
         end
       end
       computer_board.place(computer_ship, coordinate_array)
+      require 'pry'; binding.pry
     end
   end
 
